@@ -1,5 +1,12 @@
+import { BrowserRouter } from "react-router-dom";
+import Router from "./pages/Router";
+
 function App() {
-  return <div className="App">1</div>;
+  return (
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
+  );
 }
 
 export default App;
