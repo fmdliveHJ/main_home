@@ -1,2 +1,8 @@
 .footer {
+  padding: 3.2rem;
+  background: #000;
+}
+
+.footer h2 {
+  color: #fff;
 }

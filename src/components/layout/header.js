@@ -1,52 +1,96 @@
-import React from 'react';
-import styles from './header.module.css';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from "react";
+import styles from "./header.module.css";
+import { Link } from "react-router-dom";
 
 const Header = () => {
+  const headerRef = useRef();
+  const [isFixed, setIsFixed] = useState(false);
+
+  useEffect(() => {
+    function handleScroll() {
+      let windowTop = window.scrollY;
+      if (windowTop > 50) {
+        setIsFixed(true);
+      } else {
+        setIsFixed(false);
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const MenuItem = ({ text, links }) => {
+    const [isHovering, setIsHovering] = useState(false);
+
+    const handleMouseOver = () => {
+      setIsHovering(true);
+    };
+
+    const handleMouseOut = () => {
+      setIsHovering(false);
+    };
+
+    return (
+      <li onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+        <div className={styles.gnb_text}>{text}</div>
+        <ul
+          className={`${styles.depth_list} ${
+            isHovering ? styles.depth_on : ""
+          }`}
+        >
+          {links.map((link, index) => (
+            <li key={index}>
+              <Link to={link.path}>{link.name}</Link>
+            </li>
+          ))}
+        </ul>
+      </li>
+    );
+  };
+
+  const menuItems = [
+    {
+      text: "Front Experience",
+      links: [{ path: "/baronote", name: "Lorem Ipsum" }],
+    },
+    {
+      text: "Publishing Experience",
+      links: [
+        { path: "/Hswf", name: "Lorem Ipsum" },
+        { path: "/Nowon", name: "Lorem Ipsum" },
+        { path: "/Webjangi", name: "Lorem Ipsum" },
+      ],
+    },
+    {
+      text: "Work Experience",
+      links: [
+        { path: "/Webjangi", name: "Lorem Ipsum" },
+        { path: "/Webjangi", name: "Lorem Ipsum" },
+      ],
+    },
+  ];
+
   return (
-    <div className={styles.header}>
+    <header
+      className={`${styles.header} ${isFixed ? styles.header_fixed : ""}`}
+      ref={headerRef}
+    >
       <h1>
-        <Link to='/'>home</Link>
+        <Link to="/">home</Link>
       </h1>
-      <nav>
+      <nav className={styles.gnb}>
         <ul>
-          <li>
-            <div>Front Experience</div>
-            <ul>
-              <li>
-                <Link to='/baronote'>BaroNote</Link>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <div>Publishing Experience</div>
-            <ul>
-              <li>
-                <Link to='/Webjangi'>웹쟁이</Link>
-              </li>
-              <li>
-                <Link to='/Hswf'>화성시여성가족청소년재단</Link>
-              </li>
-              <li>
-                <Link to='/Nowon'>노원평생교육포털</Link>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <div>works Experience</div>
-            <ul>
-              <li>
-                <Link to='/baronote'>Jeep</Link>
-              </li>
-              <li>
-                <Link to='/baronote'>Nudie Jeans</Link>
-              </li>
-            </ul>
-          </li>
+          {menuItems.map((item, index) => (
+            <MenuItem key={index} text={item.text} links={item.links} />
+          ))}
         </ul>
       </nav>
-      <div className='theme'></div>
-    </div>
+      <div className={styles.theme}></div>
+    </header>
   );
 };
 

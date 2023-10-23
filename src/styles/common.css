@@ -1,0 +1,15 @@
+.theme--light {
+  --background: rgb(255, 255, 255);
+  --border-bottom: #eaeaea;
+  --color: #000;
+
+  --theme-color: red;
+}
+
+.theme--dark {
+  --background: rgb(26, 29, 33);
+  --border-bottom: #fff;
+  --color: #fff;
+
+  --theme-color: red;
+}
