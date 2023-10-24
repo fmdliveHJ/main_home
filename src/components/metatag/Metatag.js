@@ -5,6 +5,8 @@ const Metatag = () => {
     <>
       <Helmet>
         <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="description"
           content="여러분을 환영합니다! 회사이름에서는 고객님께 최상의 서비스를 제공해 드리고자 합니다."

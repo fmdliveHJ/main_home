@@ -9,8 +9,13 @@
   width: 100%;
   height: 100px;
   background: var(--background);
-  transition: 0.5s;
+  transform: translateY(-30px);
+  transition: transform 0.3s ease-out, height 0.3s ease-in;
   border-bottom: 1px solid var(--border-bottom);
+}
+
+.header_loaded {
+  transform: translateY(0);
 }
 
 .header_fixed {
@@ -31,15 +36,16 @@
   height: 100%;
   cursor: pointer;
 }
+
 .gnb > ul {
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 1.2rem;
 }
 .gnb > ul > li {
   position: relative;
   margin-right: 1rem;
-  padding-bottom: 20px;
+  padding-bottom: 1.2rem;
 }
 
 .gnb ul li a {
@@ -85,3 +91,191 @@
   border-radius: 50%;
   background: var(--theme-color);
 }
+
+.mobile_menu {
+  display: none;
+}
+.mobile_gnb_wrapper {
+  display: none;
+}
+
+@media screen and (max-width: 1023px) {
+  .gnb {
+    display: none;
+  }
+
+  .header {
+    height: 60px;
+  }
+  .header_fixed {
+    height: 50px;
+  }
+  .header h1 {
+    width: 35px;
+    height: 35px;
+  }
+
+  .mobile_menu {
+    order: 3;
+    display: block;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    cursor: pointer;
+    z-index: 700;
+  }
+
+  .mobile_menu_line {
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 2px;
+    background-color: #333;
+    transition: transform 0.35s;
+    margin: 7px 0;
+    width: 20px;
+  }
+
+  .mobile_menu_line:before,
+  .mobile_menu_line:after {
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 2px;
+    background-color: #333;
+    transition: transform 0.35s;
+    width: 20px;
+  }
+
+  .mobile_menu_line:after {
+    transform: translateY(5px);
+  }
+
+  .mobile_menu_line:before {
+    transform: translateY(-7px);
+  }
+
+  .mobile_gnb_wrapper {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--color-white);
+    opacity: 1;
+    transform: translateX(100%);
+    transition: all 0.35s;
+    overflow: hidden;
+    background: #3c4558;
+    z-index: 1000;
+    padding-top: 4rem;
+    height: 100vh;
+  }
+  .mobile_gnb_close {
+    order: 3;
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    cursor: pointer;
+    z-index: 700;
+    background: none;
+    border: 0;
+  }
+
+  .mobile_gnb_close_line {
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 2px;
+    background-color: transparent;
+    transition: transform 0.35s;
+    margin: 7px 0;
+    width: 20px;
+  }
+
+  .mobile_gnb_close_line:before,
+  .mobile_gnb_close_line:after {
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 2px;
+    background-color: #fff;
+    transition: transform 0.35s;
+    width: 20px;
+  }
+
+  .mobile_gnb_close_line:after {
+    transform: translateY(0) rotate(135deg);
+  }
+
+  .mobile_gnb_close_line:before {
+    transform: translateY(2px) rotate(-135deg);
+  }
+
+  .mobile_gnb_open {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+
+  .mobile_gnb {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile_gnb > li {
+    position: relative;
+  }
+
+  .mobile_depth_list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: linear 0.3s;
+    background: #fff;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+  }
+  .mobile_depth_list li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    background: #fff;
+  }
+  .mobile_depth_list_on {
+    max-height: 100px;
+    visibility: visible;
+  }
+  .mobile_gnb_list {
+    width: 100%;
+  }
+  .gnb_text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 5rem;
+    background: #fff;
+  }
+  .theme {
+    order: 2;
+    width: 35px;
+    height: 35px;
+  }
+} /* tablet */
+
+@media screen and (max-width: 768px) {
+} /* mobile */

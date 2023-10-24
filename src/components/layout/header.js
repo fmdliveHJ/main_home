@@ -1,20 +1,25 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./header.module.css";
 import { Link } from "react-router-dom";
+import { menuItems } from "../../constants/MenuItem";
+import { gsap } from "gsap";
 
 const Header = () => {
   const headerRef = useRef();
   const [isFixed, setIsFixed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeItemIndex, setActiveItemIndex] = useState(null);
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
-    function handleScroll() {
+    const handleScroll = () => {
       let windowTop = window.scrollY;
       if (windowTop > 50) {
         setIsFixed(true);
       } else {
         setIsFixed(false);
       }
-    }
+    };
 
     window.addEventListener("scroll", handleScroll);
 
@@ -23,13 +28,29 @@ const Header = () => {
     };
   }, []);
 
+  useLayoutEffect(() => {
+    const handleLoad = () => {
+      if (headerRef.current) {
+        setLoad(true);
+      }
+    };
+
+    if (document.readyState === "complete") {
+      handleLoad();
+    } else {
+      window.addEventListener("load", handleLoad);
+    }
+
+    return () => {
+      window.removeEventListener("load", handleLoad);
+    };
+  }, []);
+
   const MenuItem = ({ text, links }) => {
     const [isHovering, setIsHovering] = useState(false);
-
     const handleMouseOver = () => {
       setIsHovering(true);
     };
-
     const handleMouseOut = () => {
       setIsHovering(false);
     };
@@ -40,7 +61,7 @@ const Header = () => {
         <ul
           className={`${styles.depth_list} ${
             isHovering ? styles.depth_on : ""
-          }`}
+          } `}
         >
           {links.map((link, index) => (
             <li key={index}>
@@ -52,31 +73,37 @@ const Header = () => {
     );
   };
 
-  const menuItems = [
-    {
-      text: "Front Experience",
-      links: [{ path: "/baronote", name: "Lorem Ipsum" }],
-    },
-    {
-      text: "Publishing Experience",
-      links: [
-        { path: "/Hswf", name: "Lorem Ipsum" },
-        { path: "/Nowon", name: "Lorem Ipsum" },
-        { path: "/Webjangi", name: "Lorem Ipsum" },
-      ],
-    },
-    {
-      text: "Work Experience",
-      links: [
-        { path: "/Webjangi", name: "Lorem Ipsum" },
-        { path: "/Webjangi", name: "Lorem Ipsum" },
-      ],
-    },
-  ];
+  const MobileMenuItem = ({ text, links }) => {
+    const [mobileOpenClick, setMobileOpenClick] = useState(false);
+
+    return (
+      <li className={styles.mobile_gnb_list}>
+        <div
+          className={styles.gnb_text}
+          onClick={() => setMobileOpenClick((prev) => !prev)}
+        >
+          {text}
+        </div>
+        <ul
+          className={`${styles.mobile_depth_list} ${
+            mobileOpenClick ? styles.mobile_depth_list_on : ""
+          } `}
+        >
+          {links.map((link, index) => (
+            <li key={index}>
+              <Link to={link.path}>{link.name}</Link>
+            </li>
+          ))}
+        </ul>
+      </li>
+    );
+  };
 
   return (
     <header
-      className={`${styles.header} ${isFixed ? styles.header_fixed : ""}`}
+      className={`${styles.header} ${isFixed ? styles.header_fixed : ""} ${
+        load ? styles.header_loaded : ""
+      }`}
       ref={headerRef}
     >
       <h1>
@@ -89,6 +116,40 @@ const Header = () => {
           ))}
         </ul>
       </nav>
+      {/* 모바일 메뉴 */}
+      <div className={styles.mobile_menu} onClick={() => setMobileOpen(true)}>
+        <span className={styles.mobile_menu_line}></span>
+      </div>
+
+      <div
+        className={`${styles.mobile_gnb_wrapper} ${
+          mobileOpen ? styles.mobile_gnb_open : ""
+        }`}
+      >
+        <button
+          className={styles.mobile_gnb_close}
+          onClick={() => setMobileOpen(false)}
+        >
+          <div className={styles.mobile_menu_wrap}>
+            <div className={styles.mobile_menu_con}>
+              <span className={styles.mobile_gnb_close_line}></span>
+            </div>
+          </div>
+        </button>
+        <nav className={styles.mobile_gnb}>
+          {menuItems.map((item, index) => (
+            <MobileMenuItem
+              key={index}
+              text={item.text}
+              links={item.links}
+              isActive={activeItemIndex === index}
+              onClick={() =>
+                setActiveItemIndex(index === activeItemIndex ? null : index)
+              }
+            />
+          ))}
+        </nav>
+      </div>
       <div className={styles.theme}></div>
     </header>
   );
