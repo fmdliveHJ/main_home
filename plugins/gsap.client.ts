@@ -5,11 +5,12 @@ export default defineNuxtPlugin(() => {
   if (typeof window === 'undefined') return; // SSR 방지
 
   gsap.registerPlugin(ScrollTrigger);
-
+  const timeline = gsap.timeline();
   return {
     provide: {
       gsap,
-      ScrollTrigger, // ScrollTrigger도 함께 제공
+      timeline,
+      ScrollTrigger,
     },
   };
 });
