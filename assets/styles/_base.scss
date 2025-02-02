@@ -112,6 +112,7 @@ blockquote {
   &:before,
   &:after {
     content: '';
+    content: none;
   }
 }
 
@@ -254,7 +255,7 @@ button {
   box-sizing: border-box;
   line-height: inherit;
   font-family: var(--font-family-Pretendard), sans-serif; //font
-  font-size: var(--font-size-base);
+  font-size: inherit;
   &::-webkit-scrollbar {
     width: 6px;
     height: 6px;

@@ -1,13 +1,7 @@
 <template>
-  <div id="container">
-    <Header />
-    <Visual />
-  </div>
+  <div>test</div>
 </template>
 
-<script setup>
-import Header from '~/components/global/header.vue';
-import Visual from '~/pages/sections/visual.vue';
-</script>
+<script setup></script>
 
 <style lang="scss" scoped></style>
