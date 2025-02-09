@@ -3,7 +3,6 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "moduleResolution": "node",
-    "types": ["gsap"],
     "typeRoots": ["./node_modules/@types", "./types"]
   }
 }
