@@ -51,6 +51,7 @@ header {
   position: relative;
   height: 60px;
   transition: all 0.3s ease;
+  z-index: 100;
   &.default-header {
     width: 100%;
     background-color: white;

@@ -3,6 +3,11 @@
 }
 
 .section {
+  margin-top: 15rem;
   height: 800px;
   position: relative;
+  .inner {
+    max-width: 1920px;
+    margin: 0 auto;
+  }
 }
