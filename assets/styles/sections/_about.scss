@@ -10,7 +10,7 @@
     display: flex;
     gap: 1rem;
     font-size: 5rem;
-    span {
+    & > div {
       font-size: inherit;
       &.title-line {
         position: relative;
@@ -35,9 +35,11 @@
       }
     }
   }
-  .mask {
+  .mask-box {
     margin-top: 5rem;
-    &-text {
+
+    &--text {
+      display: block;
       font-size: 2rem;
       font-weight: 300;
       line-height: 1.5;
@@ -48,13 +50,17 @@
       background-repeat: no-repeat;
       background-image: linear-gradient(#000, #000);
       background-size: 0% 100%;
+      em {
+        font-size: inherit;
+        font-weight: inherit;
+        font-style: inherit;
+      }
     }
   }
-  .line-text {
+  .text-line {
     font-size: inherit;
     position: relative;
-    color: #000;
-    -webkit-text-fill-color: #000;
+    transition: color 0.3s ease-in-out;
     &:after {
       position: absolute;
       bottom: -5px;
@@ -68,6 +74,13 @@
       transition: all 0.3s ease-in-out;
     }
     &.active {
+      -webkit-text-fill-color: rgba(0, 0, 0, 0.1);
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      background-repeat: no-repeat;
+      background-image: linear-gradient(#000, #000);
+      background-size: 100% 100%;
       &:after {
         opacity: 1;
         width: 100%;
