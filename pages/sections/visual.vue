@@ -279,10 +279,10 @@ onMounted(async () => {
   <div class="section visual">
     <div class="inner">
       <div class="visual-box" ref="visualBoxRef">
-        <h1 class="visual-box--title title-top">
+        <h2 class="visual-box--title title-top">
           <span>WEB</span>
           <span>DEVELOPER</span>
-        </h1>
+        </h2>
         <div class="visual-box--skill">
           <div class="skill-item">
             <div class="skill-item--js"><span>Js</span></div>
