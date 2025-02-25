@@ -12,6 +12,7 @@
     font-size: 5rem;
     & > div {
       font-size: inherit;
+      font-family: var(--font-family-FuturaNow);
       &.title-line {
         position: relative;
         &:after {

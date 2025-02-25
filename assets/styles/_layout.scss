@@ -11,3 +11,23 @@
     margin: 0 auto;
   }
 }
+
+/*flex*/
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+/*width*/
+.w-50 {
+  width: 50%;
+}

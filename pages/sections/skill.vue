@@ -9,7 +9,7 @@ onMounted(async () => {
   gsap.registerPlugin(ScrollTrigger);
 
   const skillTitleTexts = document.querySelectorAll('.skill-box--title > div');
-  const titleLine = document.querySelector('.title-line');
+  const titleLine = document.querySelector('.skill-box .title-line');
 
   $gsap.fromTo(
     skillTitleTexts,
