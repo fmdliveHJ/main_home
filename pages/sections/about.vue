@@ -4,9 +4,6 @@ import { useNuxtApp } from '#app';
 
 onMounted(async () => {
   const { $gsap } = useNuxtApp();
-  const gsap = (await import('gsap')).default;
-  const ScrollTrigger = (await import('gsap/ScrollTrigger')).default;
-  gsap.registerPlugin(ScrollTrigger);
 
   const maskTexts = document.querySelectorAll('.about-box--title > div');
 
@@ -36,7 +33,7 @@ onMounted(async () => {
     }
   );
 
-  let tl = gsap.timeline({
+  let tl = $gsap.timeline({
     scrollTrigger: {
       trigger: '.mask-box',
       start: 'top 75%',
@@ -45,7 +42,7 @@ onMounted(async () => {
     },
   });
 
-  gsap.utils.toArray('.mask-box--text').forEach((text: any) => {
+  $gsap.utils.toArray('.mask-box--text').forEach((text: any) => {
     tl.to(text, {
       backgroundSize: '100% 100%',
       duration: 0.5,

@@ -4,10 +4,6 @@ import { useNuxtApp } from '#app';
 
 onMounted(async () => {
   const { $gsap } = useNuxtApp();
-  const gsap = (await import('gsap')).default;
-  const ScrollTrigger = (await import('gsap/ScrollTrigger')).default;
-  gsap.registerPlugin(ScrollTrigger);
-
   const skillTitleTexts = document.querySelectorAll('.skill-box--title > div');
   const titleLine = document.querySelector('.skill-box .title-line');
 
@@ -46,12 +42,12 @@ onMounted(async () => {
       element.style.zIndex = (index + 1).toString();
 
       const translateY = index * 60;
-      gsap.set(element, {
+      $gsap.set(element, {
         y: translateY,
         scale: 1,
       });
 
-      gsap.to(element, {
+      $gsap.to(element, {
         scale: 1 - 0.05 * (skillItems.length - 1 - index),
         scrollTrigger: {
           trigger: element,

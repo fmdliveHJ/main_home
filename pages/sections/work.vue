@@ -186,11 +186,7 @@ const workList = [
 onMounted(async () => {
   await nextTick();
   const { $gsap } = useNuxtApp();
-  const gsap = (await import('gsap')).default;
-  const ScrollTrigger = (await import('gsap/ScrollTrigger')).default;
-  gsap.registerPlugin(ScrollTrigger);
 
-  const workListRef = ref<HTMLElement[]>([]);
   const workTitleTexts = document.querySelectorAll('.work-box__title > div');
   const titleLine = document.querySelector('.work-box .title-line');
   const workListItems = document.querySelectorAll('.work-list__item');
@@ -210,7 +206,6 @@ onMounted(async () => {
         trigger: '.work-box__title',
         start: 'top 90%',
         end: 'bottom 30%',
-        //markers: true,
         toggleActions: 'restart none none reverse',
         onEnter: () => {
           console.log('onEnter');
@@ -226,7 +221,7 @@ onMounted(async () => {
   workListItems.forEach((el) => {
     const children = el.querySelectorAll('h3, .flex, dl, .work-list__item-pic');
 
-    gsap.from(children, {
+    $gsap.from(children, {
       opacity: 0,
       y: 30,
 
@@ -236,7 +231,6 @@ onMounted(async () => {
         trigger: el,
         start: 'top 80%',
         end: 'bottom 30%',
-        markers: true,
         toggleActions: 'restart none none reverse',
       },
     });
