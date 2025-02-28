@@ -25,8 +25,11 @@
     &.title-bottom {
       flex-direction: column;
       justify-content: center;
-      align-self: center;
+      align-items: center;
       text-align: center;
+      span {
+        width: max-content;
+      }
     }
   } // title
   &--skill {
@@ -78,18 +81,52 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: inherit;
+
       & > div {
         display: flex;
         justify-content: center;
         align-items: center;
         width: inherit;
         padding: 1rem;
+        span {
+          font-size: 10px;
+        }
       }
     }
   }
   &--scene {
     position: absolute;
     bottom: 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .visual-box {
+    &--title {
+      span {
+        font-size: max(5rem, 4cqi);
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .visual {
+    .inner {
+      height: calc(100vh - 60px);
+      .visual-box {
+        gap: max(10rem, 10cqi);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .visual-box {
+    &--title {
+      span {
+        font-size: max(3rem, 4cqi);
+      }
+    }
   }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, transformVNodeArgs } from 'vue';
 import { useNuxtApp } from '#app';
 
 const { $gsap } = useNuxtApp();
@@ -7,8 +7,6 @@ const { $gsap } = useNuxtApp();
 const visualBoxRef = ref<HTMLElement | null>(null);
 const scene = ref<HTMLElement | null>(null);
 const flagContainer = ref<HTMLElement | null>(null);
-const canvasWidth = 1100;
-const canvasHeight = 900;
 
 const flags = [
   {
@@ -98,18 +96,38 @@ onMounted(() => {
 onMounted(async () => {
   if (process.client) {
     await nextTick();
+
+    const canvasHeight = 900; // 캔버스 높이고정
+    const getCanvasWidth = () => {
+      const screenWidth =
+        typeof window !== 'undefined' ? window.innerWidth : 1920;
+
+      if (screenWidth >= 1920) {
+        return 1500;
+      } else if (screenWidth >= 1024) {
+        return 1100;
+      } else {
+        return screenWidth - 40;
+      }
+    };
+    let canvasWidth = getCanvasWidth();
+
+    const updateCanvasSize = () => {
+      canvasWidth = getCanvasWidth();
+
+      const canvas = document.querySelector('canvas');
+      if (canvas) {
+        canvas.width = canvasWidth;
+      }
+    };
+
+    // Resize 캔버스 크기 조정
+    window.addEventListener('resize', updateCanvasSize);
+
     setTimeout(async () => {
+      //Matter js 추가
       const Matter = await import('matter-js');
-      const {
-        Engine,
-        Render,
-        World,
-        Bodies,
-        Body,
-        Composite,
-        Mouse,
-        MouseConstraint,
-      } = Matter;
+      const { Engine, Render, World, Bodies, Body, Composite } = Matter;
 
       const engine = Engine.create();
       const world = engine.world;
@@ -131,10 +149,6 @@ onMounted(async () => {
         },
       });
 
-      const elements = flagContainer.value
-        ? flagContainer.value.querySelectorAll('.flag-item--box')
-        : [];
-
       const measureTextWidth = (
         text: string,
         fontSize = 36,
@@ -148,41 +162,65 @@ onMounted(async () => {
         return ctx.measureText(text).width;
       };
 
-      const bodies = elements.length
-        ? Array.from(elements).map((el, index) => {
+      const elements = flagContainer.value
+        ? flagContainer.value.querySelectorAll('.flag-item--box')
+        : [];
+
+      const shuffledElements = Array.from(elements).sort(
+        () => Math.random() - 0.5
+      );
+
+      const getFontSize = (screenWidth: number) => {
+        if (screenWidth >= 1920) return 30;
+        if (screenWidth >= 1200) return 25;
+        return 16;
+      };
+
+      const bodies = shuffledElements.length
+        ? shuffledElements.map((el) => {
             const text = (el as HTMLElement).innerText;
-            const fontSize = 36;
-            const padding = 50;
+            const baseWidth = 1200;
+            const scaleFactor = canvasWidth / baseWidth;
+            const fontSize = getFontSize(window.innerWidth);
+            const padding = 20;
+
             const textWidth = measureTextWidth(text, fontSize);
             const boxWidth = textWidth + padding;
+            const boxHeight = 60;
 
             const bgColor = (el as HTMLElement).dataset.bgColor || '#ffffff';
-
             const textColor = (el as HTMLElement).dataset.textColor;
 
-            const xPosition =
-              canvasWidth / 2 -
-              boxWidth / 2 +
-              index * 60 -
-              (elements.length - 1) * 30;
+            const xPosition = Math.random() * canvasWidth;
+            const yPosition = 50;
 
-            const body = Bodies.rectangle(xPosition, 50, boxWidth, 80, {
-              restitution: 0.6,
-              friction: 0.3,
-              density: 0.001,
-              isStatic: false,
-              chamfer: { radius: 10 },
-              render: {
-                fillStyle: bgColor,
-                strokeStyle: 'transparent',
-                lineWidth: 3,
-              },
-              label: text,
-              customTextColor: textColor,
-            });
+            const body = Bodies.rectangle(
+              xPosition,
+              yPosition,
+              boxWidth,
+              boxHeight,
+              {
+                restitution: 0.6,
+                friction: 0.3,
+                density: 0.001,
+                isStatic: false,
+                chamfer: { radius: 10 },
+                render: {
+                  fillStyle: bgColor,
+                  strokeStyle: 'transparent',
+                  lineWidth: 3,
+                },
+                label: text,
+                customTextColor: textColor,
+              }
+            );
 
+            Body.setPosition(body, { x: xPosition, y: yPosition });
             Body.setVelocity(body, { x: Math.random() * 2 - 1, y: 5 });
-            Body.applyForce(body, body.position, { x: 0, y: 0.2 });
+            Body.applyForce(body, body.position, {
+              x: Math.random() * 0.02 - 0.01,
+              y: 0.2,
+            });
 
             return body;
           })
@@ -199,15 +237,82 @@ onMounted(async () => {
           const textColor = body.customTextColor || '#000';
           const fontWeight = body.customFontWeight || '500';
 
+          // ✅ 반응형 폰트 크기 적용
+          const fontSize = (body.customFontSize = getFontSize(
+            window.innerWidth
+          ));
+
           ctx.save();
           ctx.translate(position.x, position.y);
           ctx.rotate(angle);
           ctx.fillStyle = textColor;
-          ctx.font = `${fontWeight} 36px FuturaNowHeadline`;
+          ctx.font = `${fontWeight} ${fontSize}px FuturaNowHeadline`;
           ctx.fillText(text, 0, 0);
           ctx.restore();
         });
       });
+
+      let resizeTimeout: NodeJS.Timeout | null = null;
+
+      const resizeBodies = () => {
+        if (!bodies.length) return;
+
+        const canvasWidth = window.innerWidth;
+
+        // 🚀 1. 리사이즈 중에는 모든 요소 숨기기
+        render.canvas.style.opacity = '0';
+
+        const generateRandomPositions = (count: number, width: number) => {
+          const step = width / count;
+          let positions = Array.from(
+            { length: count },
+            (_, i) => step * i + Math.random() * step
+          );
+          return positions.sort(() => Math.random() - 0.5);
+        };
+        const randomXPositions = generateRandomPositions(
+          elements.length,
+          canvasWidth
+        );
+
+        bodies.forEach((body, index) => {
+          const el = elements[index] as HTMLElement;
+          if (!el) return;
+          const xPosition = randomXPositions[index];
+          const yPosition = 50;
+          Body.setStatic(body, true);
+          Body.setPosition(body, { x: xPosition, y: yPosition });
+        });
+
+        //리사이즈가 끝나면 다시 요소를 보이게 설정
+        if (resizeTimeout) clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          // 다시 랜덤한 위치 생성
+          const newRandomXPositions = generateRandomPositions(
+            elements.length,
+            window.innerWidth
+          );
+
+          bodies.forEach((body, index) => {
+            const xPosition = newRandomXPositions[index];
+            const yPosition = 50;
+
+            Body.setPosition(body, { x: xPosition, y: yPosition });
+
+            Body.setStatic(body, false);
+
+            Body.setVelocity(body, { x: Math.random() * 2 - 1, y: 5 });
+            Body.applyForce(body, body.position, {
+              x: Math.random() * 0.02 - 0.01,
+              y: 0.2,
+            });
+          });
+
+          render.canvas.style.opacity = '1';
+        }, 300);
+      };
+
+      window.addEventListener('resize', resizeBodies);
 
       const createWall = (
         x: number,
@@ -215,33 +320,91 @@ onMounted(async () => {
         width: number,
         height: number
       ) => {
-        return Bodies.rectangle(x, y, width, height, {
-          isStatic: true,
-          render: {
-            fillStyle: 'transparent',
-            strokeStyle: 'transparent',
-            lineWidth: 3,
-          },
-        });
+        return Bodies.rectangle(
+          x,
+          y,
+          width > 0 ? width : 100,
+          height > 0 ? height : 50,
+
+          {
+            isStatic: true,
+            render: {
+              fillStyle: 'transparent', // 색상 지정
+              strokeStyle: 'transparent',
+              lineWidth: 3,
+            },
+          }
+        );
       };
 
-      const wall1 = createWall(canvasWidth / 2, 650, 700, 144);
+      function updateWalls() {
+        const spanElements = document.querySelectorAll(
+          '.visual-box--title.title-bottom span'
+        );
 
-      const wall2 = createWall(canvasWidth / 2, 800, 1100, 144);
+        const canvasRect = scene.value!.getBoundingClientRect();
+        const span1 = spanElements[0].getBoundingClientRect();
+        const span2 = spanElements[1].getBoundingClientRect();
 
-      Composite.add(world, [wall1, wall2]);
+        const span1X = span1.left - canvasRect.left + span1.width / 2;
+        const span1Y = span1.top - canvasRect.top + span1.height / 2;
+        const span2X = span2.left - canvasRect.left + span2.width / 2;
+        const span2Y = span2.top - canvasRect.top + span2.height / 2;
 
-      const ground = Bodies.rectangle(canvasWidth / 2, 800, 1100, 20, {
+        Composite.remove(world, [wall1, wall2, wall3, leftWall, rightWall]);
+
+        wall1 = createWall(span1X, span1Y, span1.width, span1.height);
+        wall2 = createWall(span2X, span2Y, span2.width, span2.height);
+        wall3 = createWall(canvasWidth / 2, canvasHeight, canvasWidth, 1);
+        leftWall = Bodies.rectangle(0, canvasHeight / 2, 20, canvasHeight, {
+          isStatic: true,
+          label: 'ground',
+          render: { fillStyle: 'transparent' },
+        });
+        rightWall = Bodies.rectangle(
+          canvasWidth,
+          canvasHeight / 2,
+          20,
+          canvasHeight,
+          {
+            isStatic: true,
+            label: 'ground',
+            render: { fillStyle: 'transparent' },
+          }
+        );
+        Composite.add(world, [wall1, wall2, wall3, leftWall, rightWall]);
+      }
+
+      let wall1 = createWall(canvasWidth / 2, 650, 100, 50);
+      let wall2 = createWall(canvasWidth / 2, 800, 100, 50);
+      let wall3 = createWall(canvasWidth / 2, canvasHeight, canvasWidth, 1);
+
+      Composite.add(world, [wall1, wall2, wall3]);
+
+      const observer = new MutationObserver(updateWalls);
+      const targetNode = document.querySelector(
+        '.visual-box--title.title-bottom'
+      );
+
+      if (targetNode) {
+        observer.observe(targetNode, {
+          attributes: true,
+          childList: true,
+          subtree: true,
+        });
+      }
+
+      // const ground = Bodies.rectangle(canvasWidth / 2, 800, 1100, 20, {
+      //   isStatic: true,
+      //   label: 'ground',
+      //   render: { fillStyle: 'red' },
+      // });
+      let leftWall = Bodies.rectangle(0, canvasHeight / 2, 20, canvasHeight, {
         isStatic: true,
         label: 'ground',
         render: { fillStyle: 'transparent' },
       });
-      const leftWall = Bodies.rectangle(0, canvasHeight / 2, 20, canvasHeight, {
-        isStatic: true,
-        label: 'ground',
-        render: { fillStyle: 'transparent' },
-      });
-      const rightWall = Bodies.rectangle(
+      let rightWall = Bodies.rectangle(
         canvasWidth,
         canvasHeight / 2,
         20,
@@ -258,10 +421,20 @@ onMounted(async () => {
         render: { fillStyle: 'transparent' },
       });
 
-      Composite.add(world, [ground, leftWall, rightWall, topWall]);
+      Composite.add(world, [wall1, wall2, wall3, leftWall, rightWall, topWall]);
 
-      World.add(world, [...bodies, ground]);
+      World.add(world, [...bodies]);
 
+      window.addEventListener('resize', updateWalls);
+
+      document.addEventListener('DOMContentLoaded', () => {
+        let checkCount = 0;
+        const checkWallsInterval = setInterval(() => {
+          updateWalls();
+          checkCount++;
+          if (checkCount > 5) clearInterval(checkWallsInterval); // 5번 반복 후 종료
+        }, 100);
+      });
       Engine.run(engine);
       Render.run(render);
 

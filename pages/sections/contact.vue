@@ -7,9 +7,9 @@ onMounted(async () => {
   const { $gsap } = useNuxtApp();
 
   const contactUsTitleTexts = document.querySelectorAll(
-    '.contactUs-box__title > div'
+    '.contact__title > div'
   );
-  const titleLine = document.querySelector('.contact__box .title-line');
+  const titleLine = document.querySelector('.contact__title .title-line');
   const contactUsContent = document.querySelector('.contact__content');
 
   $gsap.fromTo(

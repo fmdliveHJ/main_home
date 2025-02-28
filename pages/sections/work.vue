@@ -208,7 +208,6 @@ onMounted(async () => {
         end: 'bottom 30%',
         toggleActions: 'restart none none reverse',
         onEnter: () => {
-          console.log('onEnter');
           if (titleLine) titleLine.classList.add('active');
         },
         onLeaveBack: () => {
