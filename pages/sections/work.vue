@@ -187,9 +187,9 @@ onMounted(async () => {
   await nextTick();
   const { $gsap } = useNuxtApp();
 
-  const workTitleTexts = document.querySelectorAll('.work-box__title > div');
-  const titleLine = document.querySelector('.work-box .title-line');
-  const workListItems = document.querySelectorAll('.work-list__item');
+  const workTitleTexts = document.querySelectorAll('.work__title > div');
+  const titleLine = document.querySelector('.work__box .title-line');
+  const workListItems = document.querySelectorAll('.work__list-item');
 
   console.log(titleLine);
 
@@ -203,7 +203,7 @@ onMounted(async () => {
       stagger: 0.1,
       ease: 'elastic.out(1, 0.5)',
       scrollTrigger: {
-        trigger: '.work-box__title',
+        trigger: '.work__box',
         start: 'top 90%',
         end: 'bottom 30%',
         toggleActions: 'restart none none reverse',
@@ -218,7 +218,7 @@ onMounted(async () => {
   );
 
   workListItems.forEach((el) => {
-    const children = el.querySelectorAll('h3, .flex, dl, .work-list__item-pic');
+    const children = el.querySelectorAll('h3, .flex, dl, .work__list-pic');
 
     $gsap.from(children, {
       opacity: 0,
@@ -240,19 +240,19 @@ onMounted(async () => {
 <template>
   <div class="section work">
     <div class="inner">
-      <div class="work-box">
-        <h2 class="work-box__title">
+      <div class="work__box">
+        <h2 class="work__title">
           <div class="title-line">Work</div>
           <div>Experience</div>
         </h2>
-        <ul class="work-list">
+        <ul class="work__list">
           <li
-            class="work-list__item"
+            class="work__list-item"
             v-for="item in workList"
             :key="item.title"
             ref="workListItems"
           >
-            <div class="work-list__item-text">
+            <div class="work__list-text">
               <h3>{{ item.title }}</h3>
               <div class="flex">
                 <dl class="w-50">
@@ -282,8 +282,7 @@ onMounted(async () => {
                 </dd>
               </dl>
             </div>
-            <div class="work-list__item-pic">
-              <NuxtLink :to="item.link"></NuxtLink>
+            <div class="work__list-pic">
               <img :src="`/images/work/${item.img}`" :alt="item.alt" />
             </div>
           </li>

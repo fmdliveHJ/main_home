@@ -62,7 +62,7 @@ const flags = [
 onMounted(() => {
   if (!$gsap) return;
 
-  const items = document.querySelectorAll('.skill-item > div');
+  const items = document.querySelectorAll('.visual__skill-item > div');
 
   setTimeout(() => {
     items.forEach((item, index) => {
@@ -78,7 +78,7 @@ onMounted(() => {
     });
   }, 200);
 
-  const spans = document.querySelectorAll('.visual-box--title span');
+  const spans = document.querySelectorAll('.visual__title span');
 
   $gsap.fromTo(
     spans,
@@ -163,7 +163,7 @@ onMounted(async () => {
       };
 
       const elements = flagContainer.value
-        ? flagContainer.value.querySelectorAll('.flag-item--box')
+        ? flagContainer.value.querySelectorAll('.visual__flag-box')
         : [];
 
       const shuffledElements = Array.from(elements).sort(
@@ -339,7 +339,7 @@ onMounted(async () => {
 
       function updateWalls() {
         const spanElements = document.querySelectorAll(
-          '.visual-box--title.title-bottom span'
+          '.visual__title.title-bottom span'
         );
 
         const canvasRect = scene.value!.getBoundingClientRect();
@@ -382,9 +382,7 @@ onMounted(async () => {
       Composite.add(world, [wall1, wall2, wall3]);
 
       const observer = new MutationObserver(updateWalls);
-      const targetNode = document.querySelector(
-        '.visual-box--title.title-bottom'
-      );
+      const targetNode = document.querySelector('.visual__title.title-bottom');
 
       if (targetNode) {
         observer.observe(targetNode, {
@@ -451,27 +449,27 @@ onMounted(async () => {
 <template>
   <div class="section visual">
     <div class="inner">
-      <div class="visual-box" ref="visualBoxRef">
-        <h2 class="visual-box--title title-top">
+      <div class="visual__box" ref="visualBoxRef">
+        <h2 class="visual__title title-top">
           <span>WEB</span>
           <span>DEVELOPER</span>
         </h2>
-        <div class="visual-box--skill">
-          <div class="skill-item">
-            <div class="skill-item--js"><span>Js</span></div>
-            <div class="skill-item--ts"><span>Ts</span></div>
-            <div class="skill-item--vue"><span>Vue</span></div>
-            <div class="skill-item--nuxt"><span>Nuxt</span></div>
+        <div class="visual__skill">
+          <div class="visual__skill-item">
+            <div class="visual__skill-js"><span>Js</span></div>
+            <div class="visual__skill-ts"><span>Ts</span></div>
+            <div class="visual__skill-vue"><span>Vue</span></div>
+            <div class="visual__skill-nuxt"><span>Nuxt</span></div>
           </div>
         </div>
-        <div id="scene" ref="scene" class="visual-box--scene"></div>
+        <div id="scene" ref="scene" class="visual__scene"></div>
 
-        <div class="visual-box--flag">
-          <div class="flag-item" ref="flagContainer">
+        <div class="visual__flag">
+          <div class="visual__flag-item" ref="flagContainer">
             <div
               v-for="(item, index) in flags"
               :key="index"
-              class="flag-item--box"
+              class="visual__flag-box"
               style="display: none"
               :data-bg-color="item.bgColor"
               :data-text-color="item.textColor"
@@ -480,7 +478,7 @@ onMounted(async () => {
             </div>
           </div>
         </div>
-        <h2 class="visual-box--title title-bottom">
+        <h2 class="visual__title title-bottom">
           <span>PUBLISHER, </span>
           <span>WEB FRONT END</span>
         </h2>

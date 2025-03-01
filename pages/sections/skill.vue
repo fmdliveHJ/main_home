@@ -4,8 +4,8 @@ import { useNuxtApp } from '#app';
 
 onMounted(async () => {
   const { $gsap } = useNuxtApp();
-  const skillTitleTexts = document.querySelectorAll('.skill-box--title > div');
-  const titleLine = document.querySelector('.skill-box .title-line');
+  const skillTitleTexts = document.querySelectorAll('.skill__title > div');
+  const titleLine = document.querySelector('.skill__box .title-line');
 
   $gsap.fromTo(
     skillTitleTexts,
@@ -17,7 +17,7 @@ onMounted(async () => {
       stagger: 0.1,
       ease: 'elastic.out(1, 0.5)',
       scrollTrigger: {
-        trigger: '.skill-box--title',
+        trigger: '.skill__title',
         start: 'top 80%',
         end: 'bottom 30%',
         //markers: true,
@@ -32,10 +32,10 @@ onMounted(async () => {
     }
   );
 
-  const skillList = document.querySelectorAll('.skill-list');
+  const skillList = document.querySelectorAll('.skill__list');
 
   skillList.forEach((list) => {
-    const skillItems = Array.from(list.querySelectorAll('.skill-item'));
+    const skillItems = Array.from(list.querySelectorAll('.skill__list-item'));
 
     skillItems.forEach((item, index) => {
       const element = item as HTMLElement;
@@ -67,16 +67,16 @@ onMounted(async () => {
 <template>
   <div class="section skill">
     <div class="inner">
-      <div class="skill-box">
-        <h2 class="skill-box--title">
+      <div class="skill__box">
+        <h2 class="skill__title">
           <div><span>Creative</span></div>
           <div>with<span class="title-line">Skill</span></div>
         </h2>
-        <div class="skill-list">
-          <div class="skill-item"></div>
-          <div class="skill-item"></div>
-          <div class="skill-item"></div>
-          <div class="skill-item"></div>
+        <div class="skill__list">
+          <div class="skill__list-item"></div>
+          <div class="skill__list-item"></div>
+          <div class="skill__list-item"></div>
+          <div class="skill__list-item"></div>
         </div>
       </div>
     </div>

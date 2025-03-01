@@ -4,15 +4,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.visual-box {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: max(3rem, 5cqi);
-  &--title {
+  &__box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: max(3rem, 5cqi);
+  }
+  &__title {
     display: flex;
     gap: 1rem;
     span {
@@ -31,12 +30,12 @@
         width: max-content;
       }
     }
-  } // title
-  &--skill {
+  }
+  &__skill {
     display: flex;
     gap: 1rem;
     width: 100%;
-    .skill-item {
+    &-item {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -55,25 +54,29 @@
           font-weight: var(--font-weight-bold);
         }
       }
-      &--js {
-        background-color: #f0db4f;
-        transform: rotate(2deg);
-      }
-      &--ts {
-        background-color: #3178c6;
-        transform: rotate(-3deg);
-      }
-      &--vue {
-        background-color: #41b883;
-        transform: rotate(6deg);
-      }
-      &--nuxt {
-        background-color: #00c581;
-        transform: rotate(-9deg);
-      }
     }
-  } // skill
-  &--flag {
+    &-js {
+      background-color: #f0db4f;
+      transform: rotate(2deg);
+    }
+    &-ts {
+      background-color: #3178c6;
+      transform: rotate(-3deg);
+    }
+    &-vue {
+      background-color: #41b883;
+      transform: rotate(6deg);
+    }
+    &-nuxt {
+      background-color: #00c581;
+      transform: rotate(-9deg);
+    }
+  }
+  &__scene {
+    position: absolute;
+    bottom: 0;
+  }
+  &__flag {
     display: flex;
     gap: 1rem;
     width: 100%;
@@ -94,15 +97,11 @@
       }
     }
   }
-  &--scene {
-    position: absolute;
-    bottom: 0;
-  }
 }
 
 @media (max-width: 1200px) {
-  .visual-box {
-    &--title {
+  .visual {
+    &__title {
       span {
         font-size: max(5rem, 4cqi);
       }
@@ -112,18 +111,15 @@
 
 @media (max-width: 1024px) {
   .visual {
-    .inner {
-      height: calc(100vh - 60px);
-      .visual-box {
-        gap: max(10rem, 10cqi);
-      }
+    &__box {
+      gap: max(10rem, 10cqi);
     }
   }
 }
 
 @media (max-width: 768px) {
-  .visual-box {
-    &--title {
+  .visual {
+    &__title {
       span {
         font-size: max(3rem, 4cqi);
       }
