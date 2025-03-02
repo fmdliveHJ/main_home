@@ -4,7 +4,7 @@ import { useNuxtApp } from '#app';
 
 onMounted(async () => {
   await nextTick();
-  const { $gsap } = useNuxtApp();
+  const { $gsap, $ScrollTrigger } = useNuxtApp();
 
   const contactUsTitleTexts = document.querySelectorAll(
     '.contact__title > div'
@@ -38,28 +38,66 @@ onMounted(async () => {
     }
   );
 
-  $gsap.fromTo(
-    contactUsContent,
-    { width: '100Vw', y: 50 },
-    {
-      width: '1100px',
-      height: '600px',
-      y: 100,
-      duration: 0.8,
-      ease: 'power1.out',
-      borderRadius: '1rem',
-      scrollTrigger: {
-        trigger: '.contact__content',
-        start: 'top 80%',
-        end: 'top 20%',
-        scrub: 3,
-        toggleActions: 'restart none none reverse',
-        onEnter: () => {
-          console.log('onEnter');
-        },
-      },
+  const getWidthSize = (screenWidth: number) => {
+    if (screenWidth >= 1200) return 1100;
+    if (screenWidth >= 1024) return 900;
+    if (screenWidth >= 768) return screenWidth - 80;
+    return screenWidth - 40;
+  };
+
+  const getHeightSize = (screenWidth: number) => {
+    if (screenWidth >= 1200) return 600;
+    if (screenWidth >= 1024) return 500;
+    if (screenWidth >= 768) return 400;
+    return 300;
+  };
+
+  const updateAnimation = () => {
+    // 기존 애니메이션 제거
+    $gsap.killTweensOf(contactUsContent);
+
+    if (window.innerWidth < 768) {
+      $gsap.set(contactUsContent, {
+        width: getWidthSize(window.innerWidth),
+        height: '300px',
+        y: 50,
+        borderRadius: '1rem',
+      });
+    } else {
+      $gsap.fromTo(
+        contactUsContent,
+        { width: '100vw', y: 50, borderRadius: '1rem' },
+        {
+          width: getWidthSize(window.innerWidth),
+          height: getHeightSize(window.innerWidth),
+          y: 100,
+          duration: 0.8,
+          ease: 'power1.out',
+          scrollTrigger: {
+            trigger: '.contact__content',
+            start: 'top 80%',
+            end: 'top 20%',
+            scrub: 3,
+            toggleActions: 'restart none none reverse',
+          },
+        }
+      );
     }
-  );
+
+    // 리사이즈 후 ScrollTrigger 업데이트
+    $ScrollTrigger.refresh();
+  };
+
+  // 최초 실행
+  updateAnimation();
+
+  let resizeTimeout: NodeJS.Timeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      updateAnimation();
+    }, 300);
+  });
 });
 </script>
 
