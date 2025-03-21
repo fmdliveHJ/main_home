@@ -40,6 +40,7 @@
       justify-content: center;
       align-items: center;
       width: inherit;
+      will-change: transform, opacity;
       & > div {
         display: flex;
         align-items: center;

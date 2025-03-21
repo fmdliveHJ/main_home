@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref, nextTick } from 'vue';
 import { useNuxtApp } from '#app';
 
 const workList = [
@@ -36,6 +36,14 @@ const workList = [
       {
         title: 'PC 페이지 반응형 웹 리뉴얼',
         desc: '기존 PC 전용 페이지를 다양한 디바이스에 최적화된 반응형 웹으로 리뉴얼',
+      },
+      {
+        title: '랜딩페이지 스크롤 모션 구현',
+        desc: 'Sticky 스크롤 플러그인을 활용해 인터랙티브 스크롤 애니메이션 제작',
+      },
+      {
+        title: '다중 팝업 슬라이드 기능',
+        desc: '고정 팝업을 화면 넓이값 기반으로 다중 팝업이 화면보다 작아질때, 슬라이드 전환 기능 추가',
       },
       {
         title: 'BO 컴포넌트 구조 개선',
@@ -116,6 +124,10 @@ const workList = [
         desc: '모듈화된 스타일 관리 체계 구축 및 컴포넌트 단위 스타일 적용',
       },
       {
+        title: 'CSS 전역 네임스페이스 충돌 방지',
+        desc: '유지보수성과 확장성을 고려한 안정적인 스타일 관리',
+      },
+      {
         title: '동적 스타일링 및 테마 적용',
         desc: 'UI 일관성을 유지하고, 재사용성을 극대화함',
       },
@@ -172,9 +184,14 @@ const workList = [
 ];
 
 onMounted(async () => {
+  await nextTick();
   const { $gsap } = useNuxtApp();
+
   const workTitleTexts = document.querySelectorAll('.work__title > div');
   const titleLine = document.querySelector('.work__box .title-line');
+  const workListItems = document.querySelectorAll('.work__list-item');
+
+  console.log(titleLine);
 
   $gsap.fromTo(
     workTitleTexts,
@@ -186,10 +203,9 @@ onMounted(async () => {
       stagger: 0.1,
       ease: 'elastic.out(1, 0.5)',
       scrollTrigger: {
-        trigger: '.work__title',
-        start: 'top 80%',
+        trigger: '.work__box',
+        start: 'top 90%',
         end: 'bottom 30%',
-        //markers: true,
         toggleActions: 'restart none none reverse',
         onEnter: () => {
           if (titleLine) titleLine.classList.add('active');
@@ -201,33 +217,21 @@ onMounted(async () => {
     }
   );
 
-  const workList = document.querySelectorAll('.work__list');
+  workListItems.forEach((el) => {
+    const children = el.querySelectorAll('h3, .flex, dl, .work__list-pic');
 
-  workList.forEach((list) => {
-    const workItems = Array.from(list.querySelectorAll('.work__list-item'));
+    $gsap.from(children, {
+      opacity: 0,
+      y: 30,
 
-    workItems.forEach((item, index) => {
-      const element = item as HTMLElement;
-      element.style.zIndex = (index + 1).toString();
-
-      const translateY = index * 60;
-      $gsap.set(element, {
-        y: translateY,
-        scale: 1,
-      });
-
-      $gsap.to(element, {
-        scale: 1 - 0.05 * (workItems.length - 1 - index),
-        scrollTrigger: {
-          trigger: element,
-          start: () => {
-            const stickyPoint = 300 + translateY;
-            return `${stickyPoint}px top`;
-          },
-          end: '+=100%',
-          scrub: true,
-        },
-      });
+      stagger: 0.05, // 0.2초 간격으로 순차적으로 실행
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 80%',
+        end: 'bottom 30%',
+        toggleActions: 'restart none none reverse',
+      },
     });
   });
 });
@@ -288,4 +292,8 @@ onMounted(async () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.content {
+  min-height: 100vh;
+}
+</style>

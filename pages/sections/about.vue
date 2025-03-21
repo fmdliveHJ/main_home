@@ -100,7 +100,7 @@ onMounted(async () => {
           </span>
           <br /><br />
           <span class="mask-text">
-            >명확한 클래스 네이밍과 구조적인 설계를 통해 유지보수가 용이한
+            명확한 클래스 네이밍과 구조적인 설계를 통해 유지보수가 용이한
             코드를</span
           >
           <span class="mask-text">
