@@ -39,7 +39,7 @@ onMounted(() => {
       </div>
       <div class="profile">
         <button class="btn-profile">
-          <img src="" alt="" />
+          <img src="/images/common/img_profile.png" alt="" />
         </button>
       </div>
     </nav>
@@ -95,6 +95,12 @@ header {
     button {
       width: inherit;
       height: inherit;
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 }

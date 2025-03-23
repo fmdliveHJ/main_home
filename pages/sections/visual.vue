@@ -135,9 +135,7 @@ onMounted(async () => {
 
       engine.gravity.x = 0;
       engine.gravity.y = 1;
-
       world.gravity.y = 2;
-      console.log('🌍 Gravity:', world.gravity);
 
       const render = Render.create({
         element: scene.value!,

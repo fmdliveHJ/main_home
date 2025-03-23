@@ -112,10 +112,8 @@ onMounted(async () => {
         <div class="contact__content">
           <div class="contact__wrapper">
             <div class="contact__description">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia
-              cupiditate vitae deserunt tempora. Saepe impedit, iste ex harum,
-              earum amet, veniam inventore corrupti ea deleniti reiciendis nemo
-              accusamus! Totam, tempore?
+              잡담이든, 프로젝트 제안이든, 커피챗이든 좋습니다 :) 편하게 연락
+              주세요!
             </div>
             <div class="contact__info">
               <div class="contact__info-item">
