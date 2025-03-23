@@ -4,7 +4,6 @@ import { useNuxtApp } from '#app';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger); // ✅ 이거 꼭 해줘야 함
 const workList = [
   {
     title: '소리바로',
@@ -204,6 +203,10 @@ onMounted(async () => {
       },
     }
   );
+
+  if (process.client) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
 
   const workList = document.querySelectorAll('.work__list');
 
