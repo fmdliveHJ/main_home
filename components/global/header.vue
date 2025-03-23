@@ -45,7 +45,7 @@ const scrollToTop = () => {
           target="_blank"
           class="btn-profile"
         >
-          <img src="~/assets/images/common/img_profile.png" alt="" />
+          <img src="/images/common/img_profile.png" alt="" />
         </NuxtLink>
       </div>
     </nav>
