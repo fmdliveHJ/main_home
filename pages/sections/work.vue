@@ -3,6 +3,13 @@ import { onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import img_soribaro from '~/assets/images/work/img_soribaro.svg';
+import img_workfy from '~/assets/images/work/img_workfy.svg';
+import img_timblo from '~/assets/images/work/img_timblo.svg';
+import img_ccourt from '~/assets/images/work/img_ccourt.png';
+import img_baronote from '~/assets/images/work/img_baronote.svg';
+import img_nowon from '~/assets/images/work/img_nowon.png';
+import img_hswf from '~/assets/images/work/img_hswf.png';
 
 gsap.registerPlugin(ScrollTrigger); // ✅ 이거 꼭 해줘야 함
 const workList = [
@@ -26,7 +33,7 @@ const workList = [
         desc: 'GSAP 플러그인을 활용해 Fade-in 및 Fade-up 인터랙션 구현으로 동적 사용자 경험 제공',
       },
     ],
-    img: 'img_soribaro.svg',
+    img: img_soribaro,
     alt: '소리바로',
   },
   {
@@ -53,7 +60,7 @@ const workList = [
         desc: '비동기 데이터 요청을 통한 리스트 동적 생성 및 UI 반영',
       },
     ],
-    img: 'img_workfy.svg',
+    img: img_workfy,
     alt: '웍스파이',
   },
   {
@@ -80,7 +87,7 @@ const workList = [
         desc: '변수($variables), 믹스인(@mixin), 중첩(& 연산자) 등을 활용한 효율적인 스타일 관리',
       },
     ],
-    img: 'img_timblo.svg',
+    img: img_timblo,
     alt: '',
     link: '',
   },
@@ -100,7 +107,7 @@ const workList = [
         desc: 'FullCalendar.js로 월/주/일 단위의 팝업 및 인터랙티브 UI 구현',
       },
     ],
-    img: 'img_ccourt.png',
+    img: img_ccourt,
     alt: '헌법 재판소',
   },
   {
@@ -127,7 +134,7 @@ const workList = [
         desc: 'RESTful API 설계를 기반으로 검색 기능을 구현, 데이터 조회 및 필터링을 지원',
       },
     ],
-    img: 'img_baronote.svg',
+    img: img_baronote,
     alt: '바로노트',
   },
   {
@@ -151,7 +158,7 @@ const workList = [
         desc02: '디바이스(PC, 태블릿, 모바일)에서 일관된 UI/UX 제공',
       },
     ],
-    img: 'img_nowon.png',
+    img: img_nowon,
     alt: '노원평생교육포털',
   },
   {
@@ -170,7 +177,7 @@ const workList = [
         desc: 'Swiper.js, Slick.js를 사용하여 반응형 및 커스텀 슬라이더 개발',
       },
     ],
-    img: 'img_hswf.png',
+    img: img_hswf,
     alt: '화성여성청소년가족재단',
   },
 ];
@@ -302,7 +309,7 @@ onMounted(async () => {
               </dl>
             </div>
             <div class="work__list-pic">
-              <img :src="`/images/work/${item.img}`" :alt="item.alt" />
+              <img :src="item.img" :alt="item.alt" />
             </div>
           </li>
         </ul>
