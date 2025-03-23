@@ -76,7 +76,8 @@
     padding: 3rem;
   }
   &__description {
-    font-size: 2rem;
+    text-align: center;
+    font-size: 3rem;
     font-weight: 400;
   }
   &__info {
@@ -158,6 +159,7 @@
 
 @media (max-width: 768px) {
   .contact {
+    margin-top: 25rem;
     &__box {
       margin-bottom: 0;
     }

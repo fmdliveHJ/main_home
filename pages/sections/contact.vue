@@ -111,10 +111,6 @@ onMounted(async () => {
         </h2>
         <div class="contact__content">
           <div class="contact__wrapper">
-            <div class="contact__description">
-              잡담이든, 프로젝트 제안이든, 커피챗이든 좋습니다 :) 편하게 연락
-              주세요!
-            </div>
             <div class="contact__info">
               <div class="contact__info-item">
                 <h3 class="contact__info-title">Address</h3>

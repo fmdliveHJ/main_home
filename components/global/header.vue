@@ -24,23 +24,29 @@ onMounted(() => {
     },
   });
 });
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+};
 </script>
 
 <template>
   <header ref="headerRef" class="default-header">
     <nav>
       <div class="git">
-        <NuxtLink
-          class="blog-link"
-          to="https://github.com/fmdliveHJ"
-          target="_blank"
-          >JHJ PORTFOLIO</NuxtLink
-        >
+        <button class="blog-link" @click="scrollToTop">JHJ PORTFOLIO</button>
       </div>
       <div class="profile">
-        <button class="btn-profile">
+        <NuxtLink
+          to="https://github.com/fmdliveHJ"
+          target="_blank"
+          class="btn-profile"
+        >
           <img src="/images/common/img_profile.png" alt="" />
-        </button>
+        </NuxtLink>
       </div>
     </nav>
   </header>
@@ -79,7 +85,7 @@ header {
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      a {
+      button {
         font-family: var(--font-family-FuturaNow);
         font-weight: var(--font-weight-bold);
         font-size: 1.2rem;

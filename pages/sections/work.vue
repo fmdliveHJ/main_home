@@ -268,7 +268,7 @@ onMounted(async () => {
             ref="workListItems"
             :data-top-bar="item.title"
           >
-            <div class="work__list-text">
+            <div class="work__list-text gap-[0.25rem]">
               <div class="flex">
                 <dl class="w-50">
                   <dt>Company/Project</dt>
@@ -279,7 +279,7 @@ onMounted(async () => {
                   <dd>{{ item.skill }}</dd>
                 </dl>
               </div>
-              <div class="flex">
+              <div class="flex g-[0.25rem]">
                 <dl class="w-50">
                   <dt>Period / Contribution</dt>
                   <dd>{{ item.period }}</dd>

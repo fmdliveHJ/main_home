@@ -98,6 +98,7 @@ onMounted(async () => {
             ref="skillListItems"
             :style="{
               backgroundColor: item.bgColor,
+              boxShadow: `0 0 3px ${item.bgColor}`,
             }"
           >
             <div class="skill__list-item-text"></div>

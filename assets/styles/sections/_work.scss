@@ -106,7 +106,9 @@
     &-text {
       display: flex;
       flex-direction: column;
-
+      & > div {
+        gap: 1rem;
+      }
       h3 {
         font-size: 3rem;
         font-weight: 700;
@@ -303,14 +305,17 @@
             .task-desc {
               font-size: 0.8rem;
             }
+            span {
+              font-size: inherit;
+            }
           }
         }
       }
       &-pic {
         order: 1;
-        height: 10rem;
-        max-width: 100%;
-        width: 100%;
+        padding-left: 1rem;
+        height: 5rem;
+        max-width: 10rem;
       }
     }
   }
