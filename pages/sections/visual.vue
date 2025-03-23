@@ -59,7 +59,8 @@ const flags = [
   },
 ];
 
-onMounted(() => {
+onMounted(async () => {
+  await nextTick();
   if (!$gsap) return;
 
   const items = document.querySelectorAll('.visual__skill-item > div');
@@ -97,7 +98,7 @@ onMounted(async () => {
   if (process.client) {
     await nextTick();
 
-    const canvasHeight = 900; // 캔버스 높이고정
+    const canvasHeight = 700;
     const getCanvasWidth = () => {
       const screenWidth =
         typeof window !== 'undefined' ? window.innerWidth : 1920;
@@ -433,7 +434,7 @@ onMounted(async () => {
           if (checkCount > 5) clearInterval(checkWallsInterval); // 5번 반복 후 종료
         }, 100);
       });
-      Engine.run(engine);
+      Matter.Runner.run(engine);
       Render.run(render);
 
       function updatePhysics() {

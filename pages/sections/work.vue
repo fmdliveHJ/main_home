@@ -144,7 +144,8 @@ const workList = [
       },
       {
         title: '사용자 환경 개선',
-        desc: '다양한 브라우저 환경(Chrome, Edge, Safari 등) 및 디바이스(PC, 태블릿, 모바일)에서 일관된 UI/UX 제공',
+        desc: '다양한 브라우저 환경(Chrome, Edge, Safari 등) 및 ',
+        desc02: '디바이스(PC, 태블릿, 모바일)에서 일관된 UI/UX 제공',
       },
     ],
     img: 'dummy.jpg',
@@ -159,7 +160,7 @@ const workList = [
     task: [
       {
         title: '반응형 웹 접근성 준수 퍼블리싱',
-        desc: '반응형 웹 접근성 준수 퍼블리싱: 공공기관 표준을 준수하며 모바일·PC 대응 UI 개발',
+        desc: '공공기관 표준을 준수하며 모바일·PC 대응 UI 개발',
       },
       {
         title: '라이브러리 활용 및 인터랙션 개발',
@@ -274,7 +275,11 @@ onMounted(async () => {
                 <dt>Task</dt>
                 <dd v-for="(task, index) in item.task" :key="index">
                   <p v-if="task.title" class="task-title">{{ task.title }}</p>
-                  <p v-if="task.desc" class="task-desc">{{ task.desc }}</p>
+                  <p v-if="task.desc" class="task-desc">
+                    <span>{{ task.desc }}</span>
+                    <br />
+                    <span v-if="task.desc02">{{ task.desc02 }}</span>
+                  </p>
                 </dd>
               </dl>
             </div>
