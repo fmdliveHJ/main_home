@@ -45,10 +45,17 @@
       }
     }
   }
+  &__content {
+    & > h3 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+  }
   &__list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 10rem);
+    grid-template-rows: repeat(1, 10rem);
+    margin-bottom: 5rem;
     gap: 5rem;
     justify-items: center; /* 가로 중앙 정렬 */
     align-items: center; /* 세로 중앙 정렬 */

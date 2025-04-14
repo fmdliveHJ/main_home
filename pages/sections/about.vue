@@ -75,47 +75,59 @@ onMounted(async () => {
             항상 긍정적인 사고를 바탕으로 끊임없이 노력하며 성장해왔습니다.
           </span>
           <span class="mask-text">
-            다양한 웹 퍼블리싱 경험을 통해 웹 퍼블리싱에 대한 깊은 이해를 갖추고
-            있으며,
-          </span>
-          <span class="mask-text">
             <em class="text-line">Vue</em>와
-            <em class="text-line">React</em> 환경에서 마크업 개발을 성공적으로
-            수행한 경험이 있습니다.
+            <em class="text-line">React</em> 환경에서 마크업 개발은 물론,
           </span>
           <span class="mask-text">
-            또한, <em class="text-line">TypeScript</em>를 활용한
-            <em class="text-line">Nuxt</em> 프레임워크에서도
+            컴포넌트 기반 UI 구조 설계와 재사용성 높은 코드 구현 경험이
+            있습니다.
           </span>
           <span class="mask-text">
-            마크업 개발을 진행하며 기술적 역량을 한층 더 발전시켰습니다.
+            TypeScript 기반 <em class="text-line">Nuxt</em> 프레임워크에서도
+            마크업 및 UI 개발을 수행하며
           </span>
           <span class="mask-text">
-            Tailwind, Quasar, Bootstrap등의
-            <em class="text-line">CSS프레임워크</em>와
-            <em class="text-line">SCSS</em>를 활용해
+            정적 타입 검사의 장점을 적극 활용해 코드의 안정성과 예측 가능성을
+            높였습니다.
+          </span>
+          <br />
+          <br />
+          <span class="mask-text"
+            >Tailwind, Quasar, Bootstrap 등의
+            <em class="text-line">CSS 프레임워크</em>와 SCSS를 활용해
+          </span>
+          <span class="mask-text"
+            >명확한 클래스 네이밍과 구조적인 설계를 통해 유지보수가 용이한 코드
+            작성을 지향합니다.</span
+          >
+          <span class="mask-text"
+            >컴포넌트의 역할과 상태를 명확히 구분하고, 확장성 있는 UI 구조를
+            구성해 왔습니다.</span
+          >
+          <br />
+          <br />
+          <span class="mask-text"
+            >또한, 크로스 브라우징, SEO와 같은
+            <em class="text-line">웹 표준</em> 요소들을 충분히 고려하여
           </span>
           <span class="mask-text">
-            개발을 진행하며 기술적 역량을 한층 더 발전시켰습니다.
-          </span>
+            사용자 중심의 웹 환경을 구축하는 데 집중합니다.</span
+          >
+          <span class="mask-text"
+            >다양한 프로젝트 경험을 바탕으로 반응형 웹 구현 및 다양한 디바이스
+            환경에</span
+          >
+          <span class="mask-text"
+            >맞춘 유연한 레이아웃 구성에 자신이 있습니다.</span
+          >
           <br /><br />
-          <span class="mask-text">
-            명확한 클래스 네이밍과 구조적인 설계를 통해 유지보수가 용이한
-            코드를</span
-          >
-          <span class="mask-text">
-            작성합니다. 또한, 크로스 브라우징, SEO, 웹 접근성과 같은 웹
-            환경의</span
-          >
           <span class="mask-text"
-            >주요 요소를 고려하여 사용자 경험을 최적화하는 데 집중합니다.</span
-          >
+            ><em class="text-line">프론트엔드 개발자</em>로서 단순한 화면 구현을
+            넘어, 사용자 경험(UX)을
+          </span>
           <span class="mask-text"
-            >다양한 프로젝트 경험을 바탕으로 반응형 웹페이지에 적합한
-            유연한</span
-          >
-          <span class="mask-text"
-            >사이즈 조정과 디자인 구현에도 자신이 있습니다.</span
+            >고려한 인터랙션 설계와 성능 최적화까지 고민하며 개발에 임하고
+            있습니다.</span
           >
         </div>
       </div>
