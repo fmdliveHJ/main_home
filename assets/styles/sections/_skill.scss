@@ -96,11 +96,18 @@
     &__title {
       font-size: 3rem;
     }
+    &__content {
+      & > h3 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+    }
     &__list {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, 7rem);
+      grid-template-rows: repeat(1, 7rem);
       gap: 1rem;
+      margin-bottom: 2rem;
 
       &-item {
         width: 7rem;
@@ -129,10 +136,16 @@
         }
       }
     }
+    &__content {
+      & > h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+    }
     &__list {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, 5rem);
+      grid-template-rows: repeat(1, 5rem);
       gap: 1rem;
 
       &-item {
