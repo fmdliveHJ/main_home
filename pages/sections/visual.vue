@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, transformVNodeArgs } from 'vue';
+import { onMounted, ref, nextTick } from 'vue';
 import { useNuxtApp } from '#app';
 
 const { $gsap } = useNuxtApp();
