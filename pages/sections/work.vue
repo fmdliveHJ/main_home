@@ -11,6 +11,7 @@ const workList = [
     period: '2024.04 ~ 2025.02 (11개월) / 15%',
     role: '화면 UI 변경 및 동적 화면 구성',
     skill: 'Vue, TypeScript, Tailwind CSS',
+    link: 'https://www.soribaro.com/',
     task: [
       {
         title: '영상 음성 번역 툴 및 작업 툴 개선',
@@ -34,6 +35,7 @@ const workList = [
     period: '2024.04 - 2025.02 (11개월) / 20%',
     role: '화면 UI 변경 및 홈페이지 반응형 웹 퍼블리싱',
     skill: 'Nuxt, SCSS,',
+    link: 'https://worksfy.net/',
     task: [
       {
         title: 'PC 페이지 반응형 웹 리뉴얼',
@@ -61,6 +63,7 @@ const workList = [
     period: '2024.08 -2024.08 (약 1개월) / 90%',
     role: '랜딩페이지 구현',
     skill: 'Nuxt, SCSS',
+    link: 'https://timblo.io/ko',
     task: [
       {
         title: 'Nuxt 프레임워크 기반 웹페이지 구현',
@@ -81,7 +84,6 @@ const workList = [
     ],
     img: 'img_timblo.svg',
     alt: '',
-    link: '',
   },
   {
     title: '헌법 재판소',
@@ -89,6 +91,7 @@ const workList = [
     period: '2024.09 -2024.10(약 2개월) / 20%',
     role: '리뉴얼 페이지 구축',
     skill: 'HTML, CSS, JavaScript, jQuery',
+    linkEtc: '내부 프로젝트',
     task: [
       {
         title: 'JSP 환경 웹 리뉴얼 퍼블리싱',
@@ -108,6 +111,7 @@ const workList = [
     period: '2022.11.01 ~ 2024.02 (14개월) / 10%',
     role: 'react 활용한 컴포넌트 퍼블리싱',
     skill: 'HTML, React, styled-components',
+    link: 'https://www.timbel.net/baronote',
     task: [
       {
         title: '화면 퍼블리싱 및 모바일 UI 구현',
@@ -135,6 +139,7 @@ const workList = [
     period: '2021.09 ~ 2022.01 (5개월) / 40%',
     role: '공공기관 웹사이트 리뉴얼 프로젝트',
     skill: 'HTML, CSS, JavaScript, jQuery',
+    link: 'https://www.nowon.kr/nwll/web/intro',
     task: [
       {
         title: '크로스 브라우징 대응',
@@ -159,6 +164,7 @@ const workList = [
     period: '2021.04 ~ 2021.07 (4개월) / 40%',
     role: '공공기관 웹사이트 리뉴얼',
     skill: 'HTML, CSS, JavaScript, jQuery',
+    link: 'https://www.hswf.or.kr/',
     task: [
       {
         title: '반응형 웹 접근성 준수 퍼블리싱',
@@ -306,6 +312,19 @@ onMounted(async () => {
             </div>
             <div class="work__list-pic">
               <img :src="`/images/work/${item.img}`" :alt="item.alt" />
+              <NuxtLink
+                v-if="item.link"
+                :to="item.link"
+                class="work__list-link"
+                target="_blank"
+              >
+                <span>View</span>
+                <span>Detail</span>
+              </NuxtLink>
+              <div v-else class="work__list-link">
+                <span>Private</span>
+                <span>Project</span>
+              </div>
             </div>
           </li>
         </ul>
