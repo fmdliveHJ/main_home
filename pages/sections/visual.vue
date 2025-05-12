@@ -478,8 +478,8 @@ onMounted(async () => {
           </div>
         </div>
         <h2 class="visual__title title-bottom">
-          <span>PUBLISHER, </span>
-          <span>WEB FRONT END</span>
+          <span>FRONT END, </span>
+          <span>PUBLISHER</span>
         </h2>
       </div>
     </div>

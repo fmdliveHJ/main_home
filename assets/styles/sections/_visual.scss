@@ -112,6 +112,9 @@
 
 @media (max-width: 1024px) {
   .visual {
+    .inner {
+      height: 100%;
+    }
     &__box {
       gap: max(10rem, 10cqi);
     }
